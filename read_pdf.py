@@ -25,8 +25,8 @@ class PDF:
     def create_dict_from_summary(self):
         all_text = ''
         summary_page = self.search_for_summary()
-        for i in range(summary_page, summary_page + 10):
-            page = self.pdf.pages[i]
+        for num in range(summary_page, summary_page + 10):
+            page = self.pdf.pages[num]
             width = page.width
             height = page.height
             reading_coordinate = (0, margin_top, width, height - margin_bottom)
@@ -75,15 +75,15 @@ class PDF:
             first_page, last_page = pages_interval.split('-')
             first_page = int(first_page) - 1 + self.summary_pages_ajustment
             last_page = int(last_page) + self.summary_pages_ajustment
-            for i in range(first_page, last_page):
-                page = self.pdf.pages[i]
+            for num in range(first_page, last_page):
+                page = self.pdf.pages[num]
                 width = page.width
                 height = page.height
                 reading_coordinate = (0, margin_top, width, height - margin_bottom)
 
                 text = page.within_bbox(reading_coordinate).extract_text()
                 all_text += text.replace('\n', ' ')
-                print(f"\n\n--------------------- PÁGINA {i + 1} ---------------------\n\n")
+                print(f"\n\n--------------------- PÁGINA {num + 1} ---------------------\n\n")
                 print(text)
 
         print('\n\n\n\n', '-------------------- TEXTO FINAL --------------------\n\n\n', all_text)
