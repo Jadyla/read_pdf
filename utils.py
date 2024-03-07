@@ -12,3 +12,15 @@ quadros_regex = r'QUADRO\s\d+\.\d+\s–.*'
 tables_regex = r'Tabela\s+\d+\.\d+\s-.*'
 # /Regex and string to remove from pdf text
 
+
+def replace_table_for_text(full_text, tables_extracted_text, tables_correct_text):
+    full_text = full_text.replace('\n', ' ')
+    for index, table_extracted in enumerate(tables_extracted_text):
+        table_extracted = table_extracted.replace('\n', ' ')
+        if table_extracted in full_text:
+            full_text = full_text.replace(table_extracted, tables_correct_text[index]).replace('\n', ' ')
+        else:
+            print("\nTable text error\n")
+    
+    #print(full_text)
+    return full_text

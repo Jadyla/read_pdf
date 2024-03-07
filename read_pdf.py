@@ -81,12 +81,51 @@ class PDF:
                 height = page.height
                 reading_coordinate = (0, margin_top, width, height - margin_bottom)
 
-                text = page.within_bbox(reading_coordinate).extract_text()
-                all_text += text.replace('\n', ' ')
-                print(f"\n\n--------------------- PÁGINA {num + 1} ---------------------\n\n")
+                print(f"\n\n--------------------- PÁGINA {num + 1} ---------------------\n")
+                if self.has_table(page):
+                    print("****** POSSUI TABELA ******\n")
+                    tables = page.extract_tables()
+                    tables_correct_text = []
+                    tables_extracted_text = []
+                    all_text_with_tables = page.within_bbox(reading_coordinate).extract_text()
+
+                    for table in tables:
+                        tables_correct_text.append(self.extract_tables_text(table))
+
+                    tables_box = page.find_tables()
+                    
+                    for table_box in tables_box:
+                        box = table_box.bbox
+                        tables_extracted_text.append(page.within_bbox(reading_coordinate).within_bbox(box).extract_text())
+                        
+                    text = replace_table_for_text(all_text_with_tables, tables_extracted_text, tables_correct_text)
+                else:
+                    text = page.within_bbox(reading_coordinate).extract_text().replace('\n', ' ')
+
+                all_text += text
                 print(text)
 
         print('\n\n\n\n', '-------------------- TEXTO FINAL --------------------\n\n\n', all_text)
+
+
+    def has_table(self, page):
+        tables = page.extract_tables()
+        if tables:
+            return True
+        return False
+
+
+    def extract_tables_text(self, table):
+        table_text = 'Tabela: '
+        for row in table:
+            row_reading = ['' if item is None else item for item in row]
+            row_reading = [item.replace('\n', ' ') for item in row_reading]
+
+            result = str(row_reading)
+            table_text += result
+            table_text += '\\n'
+
+        return table_text
 
 
 
