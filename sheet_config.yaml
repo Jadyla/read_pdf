@@ -1,0 +1,156 @@
+Município:
+  # column B
+  B2:
+    value: "Caracterização Municipal"
+    style: 
+      - bold
+  B3:
+    value: "Componente"
+    style:
+      - bold
+  B4:
+    value: "Caracterização da área de planejamento do Plano"
+    style:
+      - bold
+  B5:
+    value: "Abrangeu famílias de baixa renda "
+    style:
+  B6:
+    value: "Abrangeu Área Rural"
+    style:
+  B7:
+    value: "Abrangeu Comunidades Tradicionais "
+    style:
+  B8:
+    value: "Caracterização Física do Município "
+    style: 
+      - bold
+  B9:
+    value: "Aspectos geológico-geomorfológicos"
+    style: 
+  B10:
+    value: "Aspectos pedológicos"
+    style: 
+  B11:
+    value: "Aspectos climáticos"
+    style: 
+  B12:
+    value: "Aspectos meteorológicos"
+    style:
+  B13:
+    value: "Aspectos tipos de relevo"
+    style: 
+  B14:
+    value: "Aspectos de vegetação"
+    style:
+  B15:
+    value: "Aspectos situação dos recursos hídricos"
+    style:
+  B16:
+    value: "Caracterização Socioeconômica "
+    style:
+      - bold
+  B17:
+    value: "Aspectos do perfil demográfico da população"
+    style:
+  B18: 
+    value: "Aspectos de saúde"
+    style:
+  B19:  
+    value: "Aspectos de  habitação de interesse social"
+    style:
+  B20:
+    value: "Aspectos de meio ambiente "
+    style:
+  B21:
+    value: "Aspectos de educação "
+    style:
+  B22:
+    value: "Aspectos de políticas públicas correlatas ao saneamento básico"
+    style:
+  B23:
+    value: "Identificação do nível de desenvolvimento"
+    style:
+      - bold
+  B24:
+    value: "Aspectos da renda"
+    style:
+  B25:
+    value: "Aspectos de pobreza"
+    style:
+  B26:
+    value: "Aspectos de desigualdade social"
+    style:
+  B27:
+    value: "Aspectos da atividade econômica"
+    style:
+  B28:
+    value: "Infraestruturas do Saneamento Básico"
+    style:
+      - bold
+  B29:
+    value: "Abrangeu a existência de infraestrutura"
+    style:
+  B30:
+    value: "Abrangeu os equipamentos públicos "
+    style:
+  B31:
+    value: "Abrangeu as particularidades do município que causam impactos nos serviços "
+    style:
+  # column C
+  C3:
+    value: "Situação"
+    style:
+      - bold
+
+Política:
+  # column B
+  B2:
+    value: "Quadro institucional da política e da gestão dos serviços de saneamento básico"
+    style:
+      - bold
+  B3:
+    value: "Componente"
+    style:
+      - bold
+  B4:
+    value: "Organização dos serviços de saneamento básico"
+    style:
+      - bold
+  B5:
+    value: "Abrangeu se o  município dispunha da política municipal de saneamento básico"
+    style:
+  B6:
+    value: "Abrangeu se o  município participava de algum consórcio público"
+    style:
+  B7:
+    value: "Abrangeu se o  município dispunha de entidade de regulação instituída e atuante"
+    style:
+  B8:
+    value: "Abrangeu quais eram os prestadores de serviços bem como os contratos firmados com o município."
+    style:
+  B9:
+    value: "Abrangeu se os serviços estavam sendo cobrados."
+    style:
+  B10:
+    value: "Abrangeu por quais formas os serviços estavam sendo cobrados."
+    style:
+  B11:
+    value: "Abrangeu se existia banco de dados ou sistema municipal de informação instituído"
+    style:
+  B12:
+    value: "Abrangeu se o  município dispunha de entidade de regulação instituída e atuante"
+    style:
+  B13:
+    value: "Abrangeu quais os tipos de canais de comunicação estavam disponíveis para a população"
+    style:
+  B14:
+    value: "Abrangeu se existia algum mecanismo ativo de controle social"
+    style:
+  # column C
+  C3:
+    value: "Situação"
+    style:
+      - bold
+
+

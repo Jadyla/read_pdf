@@ -3,8 +3,13 @@ from utils import *
 from gui import *
 import re
 import os
+import openpyxl
+import yaml
 
 
+# --------------------------------------------------------------------------------
+#                                    PDF
+# --------------------------------------------------------------------------------
 class PDF:
     def __init__(self, pdf_file_name, keywords_, summary_pages_ajustment):
         self.pdf = pdfplumber.open(pdf_file_name)
@@ -136,7 +141,58 @@ def treat_if_is_empty(value, default):
         return default
     return value
 
+# --------------------------------------------------------------------------------
+#                                    Sheet
+# --------------------------------------------------------------------------------
+class Sheet:
+    def __init__(self, sheet_path):
+        self.sheet_path = sheet_path + '/Prognóstico_FUNASA.xlsx'
+        self.yaml_path = os.path.join(os.getcwd(), 'sheet_config.yaml')
+        self.wb = openpyxl.Workbook()
+        self.config = self.get_config_from_yaml()
 
+
+    def create_sheet(self):
+        #TODO: treat if exists
+        if not os.path.exists(self.sheet_path):
+            self.wb.save(self.sheet_path)
+        self.fill_sheet_before_data()            
+        return
+    
+
+    def get_config_from_yaml(self):
+        with open(self.yaml_path, 'r') as file:
+            config = yaml.safe_load(file)
+        return config
+
+
+    def fill_sheet_before_data(self):
+        sheet_names = self.wb.sheetnames
+        for sheet in self.config:
+            if not sheet in sheet_names:
+                ws = self.wb.create_sheet(sheet)
+            else:
+                ws = self.wb[sheet]
+            for cell, values in self.config[sheet].items():
+                ws[cell] = values['value']
+                self.apply_cell_style(ws[cell], values['style'])
+        self.wb.save(self.sheet_path)
+        return
+
+
+    def apply_cell_style(self, cell, style):
+        if not style:
+            return
+        if 'bold' in style:
+            cell.font = openpyxl.styles.Font(bold=True)
+        if 'italic' in style:
+            cell.font = openpyxl.styles.Font(italic=True)
+        return
+
+
+# --------------------------------------------------------------------------------
+#                                    main
+# --------------------------------------------------------------------------------
 if __name__ == '__main__':
     config = gui()
     #print(config)
@@ -148,12 +204,17 @@ if __name__ == '__main__':
     if not pdf_file_name:
         erro_popup('Plano não selecionado')
         exit(1)
-
     if not funasa_dict:
         erro_popup('Diretório não selecionado')
         exit(1)
 
+    print("Gerando texto simplificando para a inteligência...")
     pdf = PDF(pdf_file_name, keywords_, int(summary_pages_ajustment))
     summary_titles = pdf.create_dict_from_summary()
     pages_to_extract_text = pdf.search_on_summary_titles(summary_titles)
     pdf.exctract_text_from_pdf(pages_to_extract_text)
+
+    print("Criando planilha FUNASA...")
+    sheet = Sheet(funasa_dict)
+    sheet.create_sheet()
+
