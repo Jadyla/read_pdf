@@ -1,5 +1,7 @@
-#TODO: get the file name from the user (args or input). The structture is ready on main function
-pdf_file_name = '/home/jady/Documents/Jadyla/amplar/planos/Plano Antigo Águas de Lindóia.pdf'
+import tkinter as tk
+from tkinter import filedialog
+
+
 margin_bottom = 50
 margin_top = 50
 
@@ -31,3 +33,19 @@ def clean_text(text):
     text = text.replace('  ', ' ')
     text = text.replace('`', '')
     return text
+
+
+def select_pdf_file():
+    root = tk.Tk()
+    root.withdraw()
+    options = {
+        'filetypes': [('PDF files', '*.pdf')],
+        'title': 'Selecione o plano'
+    }
+
+    path = filedialog.askopenfilename(**options)
+
+    root.destroy()
+    
+    return path
+

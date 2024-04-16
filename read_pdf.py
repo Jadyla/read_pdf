@@ -131,6 +131,7 @@ class PDF:
 
 
 if __name__ == '__main__':
+    pdf_file_name = select_pdf_file()
     if not os.path.exists(pdf_file_name):
         print('Arquivo não encontrado!')
         exit(1)
