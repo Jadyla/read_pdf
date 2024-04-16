@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
+from tkinter import messagebox
 
 
 def gui():
@@ -63,3 +64,7 @@ def gui():
 
     root.mainloop()
     return config_from_user
+
+
+def erro_popup(error_message):
+    messagebox.showerror(title="Erro", message=error_message)

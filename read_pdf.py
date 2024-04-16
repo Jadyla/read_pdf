@@ -146,11 +146,11 @@ if __name__ == '__main__':
     summary_pages_ajustment = treat_if_is_empty(config.get('summary_pages_ajustment'), 0)
 
     if not pdf_file_name:
-        print('É preciso selecinar o arquivo PDF!')
+        erro_popup('Plano não selecionado')
         exit(1)
 
     if not funasa_dict:
-        print('É preciso selecionar o diretório para salvar a planilha FUNASA!')
+        erro_popup('Diretório não selecionado')
         exit(1)
 
     pdf = PDF(pdf_file_name, keywords_, int(summary_pages_ajustment))
