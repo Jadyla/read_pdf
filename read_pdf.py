@@ -136,6 +136,12 @@ class PDF:
         return table_text
 
 
+    def write_reduced_text(self, text, file_name='reduced_text'):
+        file_name = file_name + '.txt'
+        reduced_text_path = os.path.join(os.getcwd(), file_name)
+        with open(reduced_text_path, 'w') as file:
+            file.write(text)
+        return
 
 # --------------------------------------------------------------------------------
 #                                    Sheet
@@ -208,7 +214,8 @@ if __name__ == '__main__':
     pdf = PDF(pdf_file_name, keywords_, int(summary_pages_ajustment))
     summary_titles = pdf.create_dict_from_summary()
     pages_to_extract_text = pdf.search_on_summary_titles(summary_titles)
-    pdf.exctract_text_from_pdf(pages_to_extract_text)
+    text_for_intel = pdf.exctract_text_from_pdf(pages_to_extract_text)
+    pdf.write_reduced_text(text_for_intel)
 
     print("Criando planilha FUNASA...")
     sheet = Sheet(funasa_dict)
