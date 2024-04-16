@@ -4,6 +4,7 @@ from tkinter import filedialog
 
 margin_bottom = 50
 margin_top = 50
+keywords_default=['objetivos', 'metas']
 
 # Regex and string to remove from pdf text
 sumario_id = '...'
@@ -33,19 +34,4 @@ def clean_text(text):
     text = text.replace('  ', ' ')
     text = text.replace('`', '')
     return text
-
-
-def select_pdf_file():
-    root = tk.Tk()
-    root.withdraw()
-    options = {
-        'filetypes': [('PDF files', '*.pdf')],
-        'title': 'Selecione o plano'
-    }
-
-    path = filedialog.askopenfilename(**options)
-
-    root.destroy()
-    
-    return path
 

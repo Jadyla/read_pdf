@@ -1,14 +1,15 @@
 import pdfplumber
 from utils import *
+from gui import *
 import re
 import os
 
 
 class PDF:
-    def __init__(self, pdf_file_name):
+    def __init__(self, pdf_file_name, keywords_, summary_pages_ajustment):
         self.pdf = pdfplumber.open(pdf_file_name)
-        self.keywords_to_search_on_summary = ['objetivos', 'metas']
-        self.summary_pages_ajustment = 0  # ajustment of real page number and page indicated on the summary
+        self.keywords_to_search_on_summary = keywords_
+        self.summary_pages_ajustment = summary_pages_ajustment  # ajustment of real page number and page indicated on the summary
         self.last_page_to_look_for_summary = 25
 
 
@@ -60,6 +61,7 @@ class PDF:
     def search_on_summary_titles(self, summary_titles):
         titles_dict = summary_titles
         pages_list = []
+        print("\nPalavras a serem buscadas no sumário: ", self.keywords_to_search_on_summary)
         for keyword in self.keywords_to_search_on_summary:
             for index, (title, page) in enumerate(titles_dict):
                 if keyword in title.lower():
@@ -129,14 +131,29 @@ class PDF:
         return table_text
 
 
+def treat_if_is_empty(value, default):
+    if not value or value == '':
+        return default
+    return value
+
 
 if __name__ == '__main__':
-    pdf_file_name = select_pdf_file()
-    if not os.path.exists(pdf_file_name):
-        print('Arquivo não encontrado!')
+    config = gui()
+    #print(config)
+    pdf_file_name = config.get('pdf_file_name')
+    funasa_dict = config.get('funasa_dict')
+    keywords_ = treat_if_is_empty(config.get('keywords_'), keywords_default)
+    summary_pages_ajustment = treat_if_is_empty(config.get('summary_pages_ajustment'), 0)
+
+    if not pdf_file_name:
+        print('É preciso selecinar o arquivo PDF!')
         exit(1)
 
-    pdf = PDF(pdf_file_name)
+    if not funasa_dict:
+        print('É preciso selecionar o diretório para salvar a planilha FUNASA!')
+        exit(1)
+
+    pdf = PDF(pdf_file_name, keywords_, int(summary_pages_ajustment))
     summary_titles = pdf.create_dict_from_summary()
     pages_to_extract_text = pdf.search_on_summary_titles(summary_titles)
     pdf.exctract_text_from_pdf(pages_to_extract_text)
