@@ -1,5 +1,5 @@
 #TODO: get the file name from the user (args or input). The structture is ready on main function
-pdf_file_name = 'Plano Antigo Águas de Lindóia.pdf'
+pdf_file_name = '/home/jady/Documents/Jadyla/amplar/planos/Plano Antigo Águas de Lindóia.pdf'
 margin_bottom = 50
 margin_top = 50
 
@@ -24,3 +24,10 @@ def replace_table_for_text(full_text, tables_extracted_text, tables_correct_text
     
     #print(full_text)
     return full_text
+
+
+def clean_text(text):
+    text = text.replace(u"\uf0a8", "*")
+    text = text.replace('  ', ' ')
+    text = text.replace('`', '')
+    return text
