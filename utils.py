@@ -35,3 +35,8 @@ def clean_text(text):
     text = text.replace('`', '')
     return text
 
+
+def treat_if_is_empty(value, default):
+    if not value or value == '':
+        return default
+    return value

@@ -136,10 +136,6 @@ class PDF:
         return table_text
 
 
-def treat_if_is_empty(value, default):
-    if not value or value == '':
-        return default
-    return value
 
 # --------------------------------------------------------------------------------
 #                                    Sheet
