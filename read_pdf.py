@@ -43,7 +43,7 @@ class PDF:
                 if identifier in text:
                     all_text += text
                     all_text += '\n'
-        print(all_text)
+        #print(all_text)
 
         #summary_number_regex = r'\b\d+\.\d*\s'
         title_page_regex = r'(.+?)\s*\.{3,}\s*(\d+)'
@@ -55,10 +55,10 @@ class PDF:
         if not title_page:
             title_page = re.findall(title_page_underline_regex, all_text)
 
-        for title, page in title_page:
-            print("Título:", title)
-            print("Página:", page)
-            print()
+        #for title, page in title_page:
+            #print("Título:", title)
+            #print("Página:", page)
+            #print()
 
         return title_page
 
@@ -66,7 +66,7 @@ class PDF:
     def search_on_summary_titles(self, summary_titles):
         titles_dict = summary_titles
         pages_list = []
-        print("\nPalavras a serem buscadas no sumário: ", self.keywords_to_search_on_summary)
+        #print("\nPalavras a serem buscadas no sumário: ", self.keywords_to_search_on_summary)
         for keyword in self.keywords_to_search_on_summary:
             for index, (title, page) in enumerate(titles_dict):
                 if keyword in title.lower():
@@ -88,9 +88,9 @@ class PDF:
                 height = page.height
                 reading_coordinate = (0, margin_top, width, height - margin_bottom)
 
-                print(f"\n\n--------------------- PÁGINA {num + 1} ---------------------\n")
+                #print(f"\n\n--------------------- PÁGINA {num + 1} ---------------------\n")
                 if self.has_table(page):
-                    print("****** POSSUI TABELA ******\n")
+                    #print("****** POSSUI TABELA ******\n")
                     tables = page.extract_tables()
                     tables_correct_text = []
                     tables_extracted_text = []
@@ -110,10 +110,10 @@ class PDF:
                     text = page.within_bbox(reading_coordinate).extract_text().replace('\n', ' ')
 
                 all_text += text
-                print(text)
+                #print(text)
 
         all_text = clean_text(all_text)
-        print('\n\n\n\n', '-------------------- TEXTO FINAL --------------------\n\n\n', all_text)
+        #print('\n\n\n\n', '-------------------- TEXTO FINAL --------------------\n\n\n', all_text)
         return all_text
 
 
@@ -179,6 +179,8 @@ class Sheet:
             for cell, values in self.config[sheet].items():
                 ws[cell] = values['value']
                 self.apply_cell_style(ws[cell], values['style'])
+        if 'Sheet' in sheet_names:
+            self.wb.remove(self.wb['Sheet'])
         self.wb.save(self.sheet_path)
         return
 
@@ -190,6 +192,31 @@ class Sheet:
             cell.font = openpyxl.styles.Font(bold=True)
         if 'italic' in style:
             cell.font = openpyxl.styles.Font(italic=True)
+        return
+
+
+    def search_on_text(self, sheet_name, text):
+        for cell, values in self.config[sheet_name].items():
+            if not 'keys' in values:
+                continue
+            keywords = values['keys']
+            approched = False
+            for keyword in keywords:
+                if keyword in text:
+                    #print("\nkeyword: ", keyword)
+                    approched = True
+                    break
+
+            self.write_on_sheet(sheet_name, cell, approched)
+
+        return
+
+
+    def write_on_sheet(self, sheet_name, cell, approched):
+        next_cell = chr(ord(cell[0]) + 1) + cell[1:]
+        ws = self.wb[sheet_name]
+        ws[next_cell] = 'Abordado' if approched else 'Não Abordado'
+        self.wb.save(self.sheet_path)
         return
 
 
@@ -222,3 +249,11 @@ if __name__ == '__main__':
     sheet = Sheet(funasa_dict)
     sheet.create_sheet()
 
+    print("Analisando temas abordados...")
+    for sheet_name, value in keywords_approched_or_not.items():
+        pdf_approched = PDF(pdf_file_name, keywords_approched_or_not[sheet_name], summary_pages_ajustment)
+        summary_titles_approched = pdf_approched.create_dict_from_summary()
+        pages_to_extract_text_approched = pdf_approched.search_on_summary_titles(summary_titles_approched)
+        text_approched = pdf_approched.exctract_text_from_pdf(pages_to_extract_text_approched)
+        #pdf_approched.write_reduced_text(text_approched, (sheet_name + '_text_approched'))
+        sheet.search_on_text(sheet_name, (text_approched).lower())

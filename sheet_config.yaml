@@ -14,12 +14,24 @@ Município:
       - bold
   B5:
     value: "Abrangeu famílias de baixa renda "
+    keys: 
+      - 'familias de baixa renda'
+      - 'baixa renda'
+      - 'renda'
+      - 'famílias'
     style:
   B6:
     value: "Abrangeu Área Rural"
+    keys: 
+      - 'área rural'
+      - 'rural'
     style:
   B7:
     value: "Abrangeu Comunidades Tradicionais "
+    keys: 
+      - 'comunidades tradicionais'
+      - 'comunidades'
+      - 'comunidade'
     style:
   B8:
     value: "Caracterização Física do Município "
@@ -27,24 +39,60 @@ Município:
       - bold
   B9:
     value: "Aspectos geológico-geomorfológicos"
+    keys: 
+      - 'geológico'
+      - 'geomorfológicos'
+      - 'geológico-geomorfológicos'
+      - 'geologia'
+      - 'geomorfologia'
     style: 
   B10:
     value: "Aspectos pedológicos"
+    keys: 
+      - 'aspectos pedológicos'
+      - 'pedológicos'
+      - 'pedológico'
+      - 'pedologia'
     style: 
   B11:
     value: "Aspectos climáticos"
+    keys: 
+      - 'aspectos climáticos'
+      - 'climáticos'
+      - 'clima'
     style: 
   B12:
     value: "Aspectos meteorológicos"
+    keys: 
+      - 'aspectos meteorológicos'
+      - 'meteorológicos'
+      - 'meteorológico'
+      - 'meteorologia'
     style:
   B13:
     value: "Aspectos tipos de relevo"
+    keys: 
+      - 'tipos de relevo'
+      - 'relevo'
+      - 'aspectos de relevo'
     style: 
   B14:
     value: "Aspectos de vegetação"
+    keys:
+      - 'vegetação'
+      - 'aspectos de vegetação'
+      - 'vegetal'
+      - 'fauna'
+      - 'flora'
     style:
   B15:
     value: "Aspectos situação dos recursos hídricos"
+    keys:
+      - 'situação dos recursos hídricos'
+      - 'recursos hídricos'
+      - 'água'
+      - 'recursos hídricos'
+      - 'hidrografia'
     style:
   B16:
     value: "Caracterização Socioeconômica "
@@ -52,21 +100,44 @@ Município:
       - bold
   B17:
     value: "Aspectos do perfil demográfico da população"
+    keys:
+      - 'perfil demográfico'
+      - 'demográfico'
+      - 'demografia'
     style:
   B18: 
     value: "Aspectos de saúde"
+    keys:
+      - 'saúde'
+      - 'aspectos de saúde'
     style:
   B19:  
     value: "Aspectos de  habitação de interesse social"
+    keys:
+      - 'habitação de interesse social'
+      - 'habitação'
+      - 'interesse social'
     style:
   B20:
     value: "Aspectos de meio ambiente "
+    keys:
+      - 'meio ambiente'
+      - 'aspectos de meio ambiente'
+      - 'ecossistema'
     style:
   B21:
     value: "Aspectos de educação "
+    keys:
+      - 'educação'
+      - 'aspectos de educação'
+      - 'escola'
+      - 'escolas'
+      - 'ensino'
     style:
   B22:
     value: "Aspectos de políticas públicas correlatas ao saneamento básico"
+    keys:
+      - 'políticas públicas'
     style:
   B23:
     value: "Identificação do nível de desenvolvimento"
@@ -74,15 +145,34 @@ Município:
       - bold
   B24:
     value: "Aspectos da renda"
+    keys:
+      - 'renda'
+      - 'aspectos da renda'
+      - 'salário'
+      - 'salários'
+      - 'salário mínimo'
     style:
   B25:
     value: "Aspectos de pobreza"
+    keys:
+      - 'pobreza'
+      - 'aspectos de pobreza'
+      - 'pobre'
+      - 'pobres'
     style:
   B26:
     value: "Aspectos de desigualdade social"
+    keys:
+      - 'desigualdade social'
+      - 'desigualdade'
+      - 'desigualdades'
     style:
   B27:
     value: "Aspectos da atividade econômica"
+    keys:
+      - 'atividade econômica'
+      - 'econômica'
+      - 'economia'
     style:
   B28:
     value: "Infraestruturas do Saneamento Básico"
@@ -90,12 +180,24 @@ Município:
       - bold
   B29:
     value: "Abrangeu a existência de infraestrutura"
+    keys:
+      - 'infraestrutura'
+      - 'infraestruturas'
+      - 'infraestrutura de saneamento'
     style:
   B30:
     value: "Abrangeu os equipamentos públicos "
+    keys:
+      - 'equipamentos públicos'
+      - 'equipamentos'
+      - 'equipamento'
     style:
   B31:
     value: "Abrangeu as particularidades do município que causam impactos nos serviços "
+    keys:
+      - 'particularidades de município'
+      - 'impactos nos serviços'
+      - 'impactos'
     style:
   # column C
   C3:
@@ -118,34 +220,68 @@ Política:
     style:
       - bold
   B5:
-    value: "Abrangeu se o  município dispunha da política municipal de saneamento básico"
+    value: "Abordou se o município dispunha da política municipal de saneamento básico"
+    keys:
+      - 'política municipal de saneamento básico'
+      - 'política municipal'
+      - 'saneamento básico'
     style:
   B6:
-    value: "Abrangeu se o  município participava de algum consórcio público"
+    value: "Abordou se o município participava de algum consórcio público"
+    keys:
+      - 'consórcio público'
+      - 'consórcio'
     style:
   B7:
-    value: "Abrangeu se o  município dispunha de entidade de regulação instituída e atuante"
+    value: "Abordou se o município dispunha de entidade de regulação instituída e atuante"
+    keys:
+      - 'entidade de regulação'
+      - 'regulação'
+      - 'entidade'
     style:
   B8:
-    value: "Abrangeu quais eram os prestadores de serviços bem como os contratos firmados com o município."
+    value: "Abordou quais eram os prestadores de serviços bem como os contratos firmados com o município."
+    keys:
+      - 'prestadores de serviços'
+      - 'contratos'
+      - 'contratos firmados'
+      - 'contrato'
+      - 'terceirização'
+      - 'terceirizados'
+      - 'terceirização de serviços'
     style:
   B9:
-    value: "Abrangeu se os serviços estavam sendo cobrados."
+    value: "Abordou se os serviços estavam sendo cobrados."
+    keys:
+      - 'serviços'
+      - 'cobrados'
+      - 'cobrança'
     style:
   B10:
-    value: "Abrangeu por quais formas os serviços estavam sendo cobrados."
+    value: "Abordou por quais formas os serviços estavam sendo cobrados."
+    keys:
+      - 'formas de cobrança'
+      - 'formas'
     style:
   B11:
-    value: "Abrangeu se existia banco de dados ou sistema municipal de informação instituído"
+    value: "Abordou se existia banco de dados ou sistema municipal de informação instituído"
+    keys:
+      - 'banco de dados'
+      - 'sistema municipal de informação'
+      - 'informação'
     style:
   B12:
-    value: "Abrangeu se o  município dispunha de entidade de regulação instituída e atuante"
+    value: "Abordou quais os tipos de canais de comunicação estavam disponíveis para a população"
+    keys:
+      - 'canais de comunicação'
+      - 'comunicação'
     style:
   B13:
-    value: "Abrangeu quais os tipos de canais de comunicação estavam disponíveis para a população"
-    style:
-  B14:
-    value: "Abrangeu se existia algum mecanismo ativo de controle social"
+    value: "Abordou se existia algum mecanismo ativo de controle social"
+    keys:
+      - 'mecanismo de controle social'
+      - 'controle social'
+      - 'controle'
     style:
   # column C
   C3:

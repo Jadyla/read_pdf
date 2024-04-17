@@ -5,6 +5,8 @@ from tkinter import filedialog
 margin_bottom = 50
 margin_top = 50
 keywords_default=['objetivos', 'metas']
+keywords_approched_or_not = {'Município': ['caracterização', 'características', 'aspectos'],
+                             'Política': ['política']}
 
 # Regex and string to remove from pdf text
 sumario_id = '...'
