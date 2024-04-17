@@ -251,7 +251,7 @@ if __name__ == '__main__':
 
     print("Analisando temas abordados...")
     for sheet_name, value in keywords_approched_or_not.items():
-        pdf_approched = PDF(pdf_file_name, keywords_approched_or_not[sheet_name], summary_pages_ajustment)
+        pdf_approched = PDF(pdf_file_name, keywords_approched_or_not[sheet_name], int(summary_pages_ajustment))
         summary_titles_approched = pdf_approched.create_dict_from_summary()
         pages_to_extract_text_approched = pdf_approched.search_on_summary_titles(summary_titles_approched)
         text_approched = pdf_approched.exctract_text_from_pdf(pages_to_extract_text_approched)
