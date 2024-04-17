@@ -114,6 +114,7 @@ class PDF:
 
         all_text = clean_text(all_text)
         print('\n\n\n\n', '-------------------- TEXTO FINAL --------------------\n\n\n', all_text)
+        return all_text
 
 
     def has_table(self, page):
