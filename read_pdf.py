@@ -224,7 +224,8 @@ class Sheet:
 #                                    main
 # --------------------------------------------------------------------------------
 if __name__ == '__main__':
-    config = gui()
+    gui = GUI()
+    config = gui.gui()
     #print(config)
     pdf_file_name = config.get('pdf_file_name')
     funasa_dict = config.get('funasa_dict')
