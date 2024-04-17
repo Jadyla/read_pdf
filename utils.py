@@ -35,6 +35,8 @@ def clean_text(text):
     text = text.replace(u"\uf0a8", "*")
     text = text.replace('  ', ' ')
     text = text.replace('`', '')
+    text = text.replace('"', '')
+    text = text.replace('“', '')
     return text
 
 
