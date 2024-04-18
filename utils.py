@@ -24,6 +24,10 @@ actions_text_filename = 'plan_actions'
 #obj_text_path = os.path.dirname(os.getcwd()) + '/data'
 #actions_text_path = os.path.dirname(os.getcwd()) + '/data'
 
+open_option = 5
+update_option = 6
+close_option = 7
+
 
 def replace_table_for_text(full_text, tables_extracted_text, tables_correct_text):
     full_text = full_text.replace('\n', ' ')

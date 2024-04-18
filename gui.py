@@ -1,3 +1,4 @@
+from utils import open_option, update_option, close_option
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
@@ -63,29 +64,33 @@ class GUI:
         # /All inputs
 
         tk.Button(self.frame, text="GERAR", command=self.process_config).grid(row=len(fields)+15, columnspan=3, pady=5)
-        tk.Button(self.frame, text="VER", command=self.process_config).grid(row=len(fields)+16, columnspan=3, pady=5)
-        tk.Button(self.frame, text="ATUALIZAR ALTERAÇÂO", command=self.process_config).grid(row=len(fields)+17, columnspan=3, pady=5)
+        tk.Button(self.frame, text="VER", command=lambda:self.process_config(event=open_option)).grid(row=len(fields)+16, columnspan=3, pady=5)
+        tk.Button(self.frame, text="ATUALIZAR ALTERAÇÂO", command=lambda:self.process_config(event=update_option)).grid(row=len(fields)+17, columnspan=3, pady=5)
+        tk.Button(self.frame, text="SAIR", command=lambda:self.process_config(event=close_option)).grid(row=len(fields)+18, columnspan=3, pady=5)
 
         self.root.mainloop()
         return self.config_from_user
     
     # TODO: it will be necssary to think about select dict or to select the sheet path.
     # For now it is defined as the atual directory
-    def process_config(self):
-        #TODO: upgrade how the entry is gotten, not by position, but by id (create a new function to get the entry by id)
-        self.config_from_user = {'pdf_file_name': self.entries[0].get(),
-                                 'funasa_dict': os.getcwd(), # entry_dict.get(),
-                                 'summary_pages_ajustment': self.entries[1].get(),
-                                 'keywords_obj': self.entries[2].get().split(),
-                                 'keywords_actions': self.entries[3].get().split(),
-                                 'year': self.entries[4].get(),
-                                 'menu': self.entries[5].get(),
-                                 'components_menu': self.entries[6].get(),
-                                 'model': self.entries[7].get(),
-                                 'model_tokens': models_tokens[self.entries[7].get()],
-                                }
-        self.print_user_config()
-        self.root.destroy()    
+    def process_config(self, event=None):
+        if not event:
+            #TODO: upgrade how the entry is gotten, not by position, but by id (create a new function to get the entry by id)
+            self.config_from_user = {'pdf_file_name': self.entries[0].get(),
+                                    'funasa_dict': os.getcwd(), # entry_dict.get(),
+                                    'summary_pages_ajustment': self.entries[1].get(),
+                                    'keywords_obj': self.entries[2].get().split(),
+                                    'keywords_actions': self.entries[3].get().split(),
+                                    'year': self.entries[4].get(),
+                                    'menu': self.entries[5].get(),
+                                    'components_menu': self.entries[6].get(),
+                                    'model': self.entries[7].get(),
+                                    'model_tokens': models_tokens[self.entries[7].get()],
+                                    }
+            self.print_user_config()
+        else:
+            self.config_from_user = event
+        self.root.destroy()
 
     def select_file(self, entry_file):
         filepath = filedialog.askopenfilename(title="Selecione o plano", filetypes=[('PDF files', '*.pdf')])

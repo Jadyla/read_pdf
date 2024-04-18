@@ -227,6 +227,16 @@ if __name__ == '__main__':
     gui = GUI()
     config = gui.gui()
     #print(config)
+    #TODO: send to ia code
+    if config == open_option:
+        print("Send open option to the system...")
+        exit(1)
+    elif config == update_option:
+        print("Send update option to the system...")
+        exit(1)
+    elif config == close_option:
+        exit(1)
+
     pdf_file_name = config.get('pdf_file_name')
     funasa_dict = config.get('funasa_dict')
     keywords_obj = treat_if_is_empty(config.get('keywords_obj'), keywords_default)
