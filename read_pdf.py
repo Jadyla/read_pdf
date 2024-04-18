@@ -229,7 +229,7 @@ if __name__ == '__main__':
     #print(config)
     pdf_file_name = config.get('pdf_file_name')
     funasa_dict = config.get('funasa_dict')
-    keywords_ = treat_if_is_empty(config.get('keywords_'), keywords_default)
+    keywords_ = treat_if_is_empty(config.get('keywords_obj'), keywords_default)
     summary_pages_ajustment = treat_if_is_empty(config.get('summary_pages_ajustment'), 0)
 
     if not pdf_file_name:
