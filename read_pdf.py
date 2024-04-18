@@ -137,9 +137,9 @@ class PDF:
         return table_text
 
 
-    def write_reduced_text(self, text, file_name='reduced_text'):
+    def write_reduced_text(self, text, file_name='reduced_text', path=os.getcwd()):
         file_name = file_name + '.txt'
-        reduced_text_path = os.path.join(os.getcwd(), file_name)
+        reduced_text_path = os.path.join(path, file_name)
         with open(reduced_text_path, 'w') as file:
             file.write(text)
         return
@@ -229,7 +229,8 @@ if __name__ == '__main__':
     #print(config)
     pdf_file_name = config.get('pdf_file_name')
     funasa_dict = config.get('funasa_dict')
-    keywords_ = treat_if_is_empty(config.get('keywords_obj'), keywords_default)
+    keywords_obj = treat_if_is_empty(config.get('keywords_obj'), keywords_default)
+    keywords_actions = treat_if_is_empty(config.get('keywords_actions'), keywords_actions_default)
     summary_pages_ajustment = treat_if_is_empty(config.get('summary_pages_ajustment'), 0)
 
     if not pdf_file_name:
@@ -239,12 +240,19 @@ if __name__ == '__main__':
         erro_popup('Diretório não selecionado')
         exit(1)
 
-    print("Gerando texto simplificando para a inteligência...")
-    pdf = PDF(pdf_file_name, keywords_, int(summary_pages_ajustment))
+    print("Gerando texto simplificando dos OBJETIVOS para a inteligência...")
+    pdf = PDF(pdf_file_name, keywords_obj, int(summary_pages_ajustment))
     summary_titles = pdf.create_dict_from_summary()
     pages_to_extract_text = pdf.search_on_summary_titles(summary_titles)
     text_for_intel = pdf.exctract_text_from_pdf(pages_to_extract_text)
-    pdf.write_reduced_text(text_for_intel)
+    pdf.write_reduced_text(text_for_intel, file_name=obj_text_filename)
+
+    print("Gerando texto simplificando das AÇÕES para a inteligência...")
+    pdf = PDF(pdf_file_name, keywords_actions, int(summary_pages_ajustment))
+    summary_titles = pdf.create_dict_from_summary()
+    pages_to_extract_text = pdf.search_on_summary_titles(summary_titles)
+    text_for_intel = pdf.exctract_text_from_pdf(pages_to_extract_text)
+    pdf.write_reduced_text(text_for_intel, file_name=actions_text_filename)
 
     print("Criando planilha FUNASA...")
     sheet = Sheet(funasa_dict)

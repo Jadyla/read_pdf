@@ -1,10 +1,12 @@
 import tkinter as tk
 from tkinter import filedialog
+import os
 
 
 margin_bottom = 50
 margin_top = 50
 keywords_default=['objetivos', 'metas']
+keywords_actions_default=['ações']
 keywords_approched_or_not = {'Município': ['caracterização', 'características', 'aspectos'],
                              'Política': ['política']}
 
@@ -16,6 +18,11 @@ font_regex = r'Fonte:\s.*'
 quadros_regex = r'QUADRO\s\d+\.\d+\s–.*'
 tables_regex = r'Tabela\s+\d+\.\d+\s-.*'
 # /Regex and string to remove from pdf text
+
+obj_text_filename = 'plan_obj_ddl_inv'
+actions_text_filename = 'plan_actions'
+#obj_text_path = os.path.dirname(os.getcwd()) + '/data'
+#actions_text_path = os.path.dirname(os.getcwd()) + '/data'
 
 
 def replace_table_for_text(full_text, tables_extracted_text, tables_correct_text):
