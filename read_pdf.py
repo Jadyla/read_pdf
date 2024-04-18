@@ -243,45 +243,70 @@ def generate_approched_tabs(pdf_file_name, funasa_dict, summary_pages_ajustment)
     return
 
 
+def send_command_to_ia(command):
+    command.insert(0, 'python3')
+    command.insert(1, main_file_path)
+    #TODO: remove print and add subprocess
+    print("================ \n")
+    print(command)
+    print("================ \n")
+    return
+
 if __name__ == '__main__':
-    gui = GUI()
-    config = gui.gui()
-    #print(config)
-    #TODO: send to ia code
-    if config == open_option:
-        print("Send open option to the system...")
-        exit(1)
-    elif config == update_option:
-        print("Send update option to the system...")
-        exit(1)
-    elif config == close_option:
-        exit(1)
+    while True:
+        gui = GUI()
+        config = gui.gui()
+        command = []
+        #print(config)
+        if config == open_option:
+            command.append(open_option)
+            print("Send open option to the system...")
+        elif config == update_option:
+            command.append(update_option)
+            print("Send update option to the system...")
+        elif config == close_option:
+            exit(1)
+        else:
+            pdf_file_name = config.get('pdf_file_name')
+            funasa_dict = config.get('funasa_dict')
+            keywords_obj = treat_if_is_empty(config.get('keywords_obj'), keywords_default)
+            keywords_actions = treat_if_is_empty(config.get('keywords_actions'), keywords_actions_default)
+            summary_pages_ajustment = treat_if_is_empty(config.get('summary_pages_ajustment'), 0)
 
-    pdf_file_name = config.get('pdf_file_name')
-    funasa_dict = config.get('funasa_dict')
-    keywords_obj = treat_if_is_empty(config.get('keywords_obj'), keywords_default)
-    keywords_actions = treat_if_is_empty(config.get('keywords_actions'), keywords_actions_default)
-    summary_pages_ajustment = treat_if_is_empty(config.get('summary_pages_ajustment'), 0)
+            if not pdf_file_name:
+                erro_popup('Plano não selecionado')
+                exit(1)
+            if not funasa_dict:
+                erro_popup('Diretório não selecionado')
+                exit(1)
 
-    if not pdf_file_name:
-        erro_popup('Plano não selecionado')
-        exit(1)
-    if not funasa_dict:
-        erro_popup('Diretório não selecionado')
-        exit(1)
+            generate_approched_tabs(pdf_file_name, funasa_dict, summary_pages_ajustment)
 
-    generate_approched_tabs(pdf_file_name, funasa_dict, summary_pages_ajustment)
+            print("Gerando texto simplificando dos OBJETIVOS para a inteligência...")
+            pdf = PDF(pdf_file_name, keywords_obj, int(summary_pages_ajustment))
+            summary_titles = pdf.create_dict_from_summary()
+            pages_to_extract_text = pdf.search_on_summary_titles(summary_titles)
+            text_for_intel = pdf.exctract_text_from_pdf(pages_to_extract_text)
+            pdf.write_reduced_text(text_for_intel, file_name=obj_text_filename)
 
-    print("Gerando texto simplificando dos OBJETIVOS para a inteligência...")
-    pdf = PDF(pdf_file_name, keywords_obj, int(summary_pages_ajustment))
-    summary_titles = pdf.create_dict_from_summary()
-    pages_to_extract_text = pdf.search_on_summary_titles(summary_titles)
-    text_for_intel = pdf.exctract_text_from_pdf(pages_to_extract_text)
-    pdf.write_reduced_text(text_for_intel, file_name=obj_text_filename)
+            print("Gerando texto simplificando das AÇÕES para a inteligência...")
+            pdf = PDF(pdf_file_name, keywords_actions, int(summary_pages_ajustment))
+            summary_titles = pdf.create_dict_from_summary()
+            pages_to_extract_text = pdf.search_on_summary_titles(summary_titles)
+            text_for_intel = pdf.exctract_text_from_pdf(pages_to_extract_text)
+            pdf.write_reduced_text(text_for_intel, file_name=actions_text_filename)
 
-    print("Gerando texto simplificando das AÇÕES para a inteligência...")
-    pdf = PDF(pdf_file_name, keywords_actions, int(summary_pages_ajustment))
-    summary_titles = pdf.create_dict_from_summary()
-    pages_to_extract_text = pdf.search_on_summary_titles(summary_titles)
-    text_for_intel = pdf.exctract_text_from_pdf(pages_to_extract_text)
-    pdf.write_reduced_text(text_for_intel, file_name=actions_text_filename)
+            menu = config.get('menu')
+            components_menu = config.get('components_menu')
+            year = config.get('year')
+            model = config.get('model')
+            model_tokens = config.get('model_tokens')
+
+            command.append(menu)
+            command.append(components_menu)
+            command.append(year)
+            command.append(model)
+            command.append(model_tokens)
+
+        send_command_to_ia(command)
+        command.clear()

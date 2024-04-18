@@ -30,6 +30,7 @@ open_option = 5
 update_option = 6
 close_option = 7
 
+main_file_path = os.getcwd() + '/main.py'
 
 def replace_table_for_text(full_text, tables_extracted_text, tables_correct_text):
     full_text = full_text.replace('\n', ' ')
