@@ -21,8 +21,10 @@ tables_regex = r'Tabela\s+\d+\.\d+\s-.*'
 
 obj_text_filename = 'plan_obj_ddl_inv'
 actions_text_filename = 'plan_actions'
+sheet_filename = 'Prognóstico_FUNASA'
 #obj_text_path = os.path.dirname(os.getcwd()) + '/data'
 #actions_text_path = os.path.dirname(os.getcwd()) + '/data'
+#sheet_path = os.path.dirname(os.getcwd()) + '/data'
 
 open_option = 5
 update_option = 6

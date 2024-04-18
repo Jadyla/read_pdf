@@ -149,19 +149,24 @@ class PDF:
 # --------------------------------------------------------------------------------
 class Sheet:
     def __init__(self, sheet_path):
-        self.sheet_path = sheet_path + '/Prognóstico_FUNASA.xlsx'
+        self.sheet_path = os.path.join(sheet_path, (sheet_filename + '.xlsx'))
         self.yaml_path = os.path.join(os.getcwd(), 'sheet_config.yaml')
-        self.wb = openpyxl.Workbook()
+        self.wb = None
+        if not os.path.exists(self.sheet_path):
+            self.wb = openpyxl.Workbook()
+            self.wb.save(self.sheet_path)
+        else:
+            self.wb = openpyxl.load_workbook(self.sheet_path)
         self.config = self.get_config_from_yaml()
 
 
-    def create_sheet(self):
-        #TODO: treat if exists
-        if not os.path.exists(self.sheet_path):
-            self.wb.save(self.sheet_path)
-        self.fill_sheet_before_data()            
-        return
-    
+    def have_all_approched_tabs(self):
+        sheet_names = self.wb.sheetnames
+        for sheet in self.config:
+            if not sheet in sheet_names:
+                self.fill_sheet_before_data()
+                return False
+        return True
 
     def get_config_from_yaml(self):
         with open(self.yaml_path, 'r') as file:
@@ -223,6 +228,21 @@ class Sheet:
 # --------------------------------------------------------------------------------
 #                                    main
 # --------------------------------------------------------------------------------
+def generate_approched_tabs(pdf_file_name, funasa_dict, summary_pages_ajustment):
+    print("Verificando planilha FUNASA...")
+    sheet = Sheet(funasa_dict)
+    if not sheet.have_all_approched_tabs():
+        print("Analisando temas abordados...")
+        for sheet_name, value in keywords_approched_or_not.items():
+            pdf_approched = PDF(pdf_file_name, keywords_approched_or_not[sheet_name], int(summary_pages_ajustment))
+            summary_titles_approched = pdf_approched.create_dict_from_summary()
+            pages_to_extract_text_approched = pdf_approched.search_on_summary_titles(summary_titles_approched)
+            text_approched = pdf_approched.exctract_text_from_pdf(pages_to_extract_text_approched)
+            #pdf_approched.write_reduced_text(text_approched, (sheet_name + '_text_approched'))
+            sheet.search_on_text(sheet_name, (text_approched).lower())
+    return
+
+
 if __name__ == '__main__':
     gui = GUI()
     config = gui.gui()
@@ -250,6 +270,8 @@ if __name__ == '__main__':
         erro_popup('Diretório não selecionado')
         exit(1)
 
+    generate_approched_tabs(pdf_file_name, funasa_dict, summary_pages_ajustment)
+
     print("Gerando texto simplificando dos OBJETIVOS para a inteligência...")
     pdf = PDF(pdf_file_name, keywords_obj, int(summary_pages_ajustment))
     summary_titles = pdf.create_dict_from_summary()
@@ -263,16 +285,3 @@ if __name__ == '__main__':
     pages_to_extract_text = pdf.search_on_summary_titles(summary_titles)
     text_for_intel = pdf.exctract_text_from_pdf(pages_to_extract_text)
     pdf.write_reduced_text(text_for_intel, file_name=actions_text_filename)
-
-    print("Criando planilha FUNASA...")
-    sheet = Sheet(funasa_dict)
-    sheet.create_sheet()
-
-    print("Analisando temas abordados...")
-    for sheet_name, value in keywords_approched_or_not.items():
-        pdf_approched = PDF(pdf_file_name, keywords_approched_or_not[sheet_name], int(summary_pages_ajustment))
-        summary_titles_approched = pdf_approched.create_dict_from_summary()
-        pages_to_extract_text_approched = pdf_approched.search_on_summary_titles(summary_titles_approched)
-        text_approched = pdf_approched.exctract_text_from_pdf(pages_to_extract_text_approched)
-        #pdf_approched.write_reduced_text(text_approched, (sheet_name + '_text_approched'))
-        sheet.search_on_text(sheet_name, (text_approched).lower())
