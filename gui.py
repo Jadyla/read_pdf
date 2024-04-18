@@ -115,12 +115,14 @@ class GUI:
             selected = tk.IntVar()
             for index, (text, value) in enumerate(config_field['op']):
                 tk.Radiobutton(self.frame, text=text, variable=selected, value=value).grid(row=row+(index+6-config_field['col']), column=config_field['col'], sticky="w", padx=10)
+            selected.set(config_field['op'][0][1])
             return selected
         elif config_field['type'] == 'dropdown':
             selected = tk.StringVar()
             dropdown = ttk.Combobox(self.frame, textvariable=selected)
             dropdown['values'] = config_field['op']
             dropdown.grid(row=row, column=config_field['col'], pady=5)
+            dropdown.set(config_field['op'][0])
             return selected
 
         return entry
