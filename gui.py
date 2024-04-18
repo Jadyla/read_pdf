@@ -15,7 +15,7 @@ models_ia = ('ft:gpt-3.5-turbo-0613:personal:teste-pablo:8xFa0aLd',
 models_tokens = {'ft:gpt-3.5-turbo-0613:personal:teste-pablo:8xFa0aLd': 4096,
                  'gpt-3.5-turbo-1106': 16385,
                  'gpt-4-turbo': 128000,
-                 'gpt-4-1106': 32768,
+                 'gpt-4-32k': 32768,
                 }
 
 
