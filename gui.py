@@ -5,11 +5,17 @@ from tkinter import messagebox
 import os
 
 
-models_ia = ('ft:gpt-3.5-turbo-0613:personal:teste-pablo:8xFa0aLd',
+models_ia = ('ft:gpt-3.5-turbo-0613:personal:teste-pablo:8xFa0aLd', 
              'gpt-3.5-turbo-1106',
              'gpt-4-turbo',
-             'gpt-4-1106',
+             'gpt-4-32k',
             )
+
+models_tokens = {'ft:gpt-3.5-turbo-0613:personal:teste-pablo:8xFa0aLd': 4096,
+                 'gpt-3.5-turbo-1106': 16385,
+                 'gpt-4-turbo': 128000,
+                 'gpt-4-1106': 32768,
+                }
 
 
 main_menu = [
@@ -76,6 +82,7 @@ class GUI:
                                  'menu': self.entries[5].get(),
                                  'components_menu': self.entries[6].get(),
                                  'model': self.entries[7].get(),
+                                 'model_tokens': models_tokens[self.entries[7].get()],
                                 }
         self.print_user_config()
         self.root.destroy()    
